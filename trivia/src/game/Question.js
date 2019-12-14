@@ -1,7 +1,5 @@
 import React from 'react';
-import propTypes from 'prop-types';
-import styled from '@emotion/styled';
-import '../question.scss';
+import propTypes from 'prop-types'
 
 export default class Question extends React.Component {
     constructor(props) {
@@ -41,12 +39,12 @@ export default class Question extends React.Component {
         const { question } = this.props.question;
 
         return (
-            <Questions className='question'>
+            <div className='question'>
                 <h3 dangerouslySetInnerHTML={{__html: question}} />
-                <List type = "a" className = "option-list">
+                <ol type = "a" className = "options">
                     {this.state.answerList.map(this.renderAnswer)}
-                </List>
-            </Questions>
+                </ol>
+            </div>
         );
     }
 
@@ -54,10 +52,10 @@ export default class Question extends React.Component {
         const { hasAnswered, isCorrect, answerSelected } = this.state;
 
         if (!hasAnswered) {
-            return <Selected key={answer} onClick={() => this.selectAnswer(answer)} dangerouslySetInnerHTML={{__html: answer}} />
+            return <li key={answer} onClick={() => this.selectAnswer(answer)} dangerouslySetInnerHTML={{__html: answer}} />
         }
 
-        let className = 'option';
+        let className = 'no-class';
         if (isCorrect && answer === answerSelected) {
             className = 'correct';
         } else if (!isCorrect && answer === answerSelected) {
@@ -90,17 +88,3 @@ export default class Question extends React.Component {
         return array;
     }
 }
-
-const Questions = styled.div({
-
-})
-
-const List = styled.ol({
-    width: '400px',
-    background: 'white',
-})
-
-const Selected = styled.li({
-    width: '400px',
-    cursor: 'pointer',
-})
