@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getQuestions } from '../actions/quizActions';
 import Question from './Question';
-import styled from '@emotion/styled';
 
 class Quiz extends React.Component {
     constructor(props) {
@@ -27,7 +26,7 @@ class Quiz extends React.Component {
         const { currentQuestion, canProceed } = this.state;
 
         return (
-            <Dashboard className="game-dash">
+            <div>
                 { isLoading && <h3>Please wait while your quiz loads...</h3> }
                 { isError && <h3>ERROR :(</h3> }
                 
@@ -35,8 +34,8 @@ class Quiz extends React.Component {
                 { questions.length > 0 &&
                     <Question question={questions[currentQuestion]} answerSelected={this._answerSelected.bind(this)} />
                 }
-                { canProceed && <Next className='next-button' onClick={this._nextQuestion}>Next Question</Next> }
-            </Dashboard>
+                { canProceed && <button className='next-button' onClick={this._nextQuestion}>Next Question</button> }
+            </div>
         );
     }
 
@@ -45,10 +44,10 @@ class Quiz extends React.Component {
         const { currentQuestion, score } = this.state;
 
         return (
-            <QuizHeader className='quiz-header'>
+            <div className='quiz-header'>
                 <p>Score: { score }</p>
                 <p className='right'>Question {currentQuestion + 1} of {questions.length}</p>
-            </QuizHeader>
+            </div>
         )
     }
 
@@ -85,38 +84,3 @@ export default connect(
     mapStateToProps,
     { getQuestions }
 )(Quiz);
-
-const Dashboard = styled.div({
-    fontFamily: 'cursive',
-    background: 'white',
-    width: '50%',
-    padding: '2%',
-    fontSize: '1.5rem',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    borderRadius: '8px',
-    position: 'relative',
-})
-
-const Next = styled.div({
-    position: 'absolute',
-    bottom: '60px',
-    right: '70px',
-    zIndex: '1',
-    width: '150px',
-    background: 'white',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: '8px',
-    border: '1px solid black',
-    fontSize: '1rem',
-    height: '30px',
-    cursor: 'pointer'
-})
-
-const QuizHeader = styled.div({
-    TextAlign: 'center'
-})
-
