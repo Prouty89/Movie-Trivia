@@ -1,6 +1,6 @@
 import React from 'react';
 import Quiz from './game/Quiz';
-import About from './components/About';
+import About from './game/About';
 import styled from '@emotion/styled';
 
 
